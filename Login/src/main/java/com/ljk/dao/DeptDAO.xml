@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljk.dao.DeptDAO">
+	<!-- 查询用户 + 分页 + 按账号和名称匹配 -->
+	<select id="getAllDepts" resultType="com.ljk.yc.Dept">
+		select * from dept_inf where
+		name like #{name} limit #{skip},#{size}
+	</select>
+	<!-- 用户总数 + 账号和名称匹配 -->
+	<select id="getDeptCount" resultType="int">
+		select count(*) from dept_inf
+		where name like #{name}
+	</select>
+	<!-- 更新用户 -->
+	<update id="updateDept" parameterType="com.ljk.yc.Dept">
+		update dept_inf set
+		name=#{name},remark=#{remark} where
+		id=#{id}
+	</update>
+	<!-- 删除用户 -->
+	<delete id="deleteDept" parameterType="int">
+        delete from dept_inf where id = #{id}
+	</delete>
+	<insert id="addDept" parameterType="com.ljk.yc.Dept">
+		insert into
+		dept_inf(name,remark)
+		values(#{name},#{remark})
+	</insert>
+	<!-- 下面的就是使用自己写的原生的page功能实现分页的 -->
+	<!-- 根据分页数据start 和size查询数据 -->
+	<select id="findByPage"  resultType="com.ljk.yc.Dept">
+        select * from dept_inf limit #{start},#{size}
+    </select>
+    <!--查询所有用户数据 -->
+    <select id="selectUserListByPage" resultType="com.ljk.yc.Dept">
+        select  *  from dept_inf
+    </select>
+    <!-- 查询用户记录总数 -->
+    <select id="selectCountByPage" resultType="int">
+        select count(*) from dept_inf
+    </select>
+</mapper>  
+

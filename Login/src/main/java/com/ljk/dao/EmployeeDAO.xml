@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.ljk.dao.EmployeeDAO">
+ <select id="getALLEmployees" resultType="com.ljk.yc.Employee">
+    select e.* , d.name as deptName from employee_inf e  join dept_inf d where
+    e.name like #{name} and e.dept_id = d.id limit #{skip},#{size} 
+   </select>
+    <select id="getEmployeeCount" resultType="int">
+    select count(*) from employee_inf where
+    name like #{name} 
+   </select>
+   <select id="getDeptId" resultType="int">
+    select id from dept_inf where name = #{deptName}
+   </select>
+   <insert id="addEmployee" >
+     insert into employee_inf(name,phone,email,qq_num,dept_id)
+     values( #{name},#{phone},#{email},#{qq_num}, (select id from dept_inf d where d.name = #{deptName}) )
+   </insert>
+   <delete id="deleteEmployee" parameterType="int">
+    delete from employee_inf where id = #{id}
+   </delete>
+  <!--  <update  id="updateEmployee">
+   update employee_inf set 
+   name= #{name},phone=#{phone},
+   email=#{email},qq_num=#{qq_num},
+   dept_id=#{ (select id from dept_inf d where d.name = #{deptName}) }
+   where id = #{id}
+   </update> -->
+   <update id="updateEmployee" parameterType="com.ljk.yc.Employee">
+   update employee_inf set name= #{name},phone=#{phone},
+   email=#{email},qq_num=#{qq_num},
+   dept_id=#{dept_id }
+   where id = #{id}
+   </update>
+</mapper>

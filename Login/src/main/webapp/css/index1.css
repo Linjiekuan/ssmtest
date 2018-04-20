@@ -1,0 +1,15 @@
+#iframeTop {
+	width: 100%;
+	height: 70px;
+}
+
+#iframeLeft {
+	width: 25%;
+	height: 700px;
+	float: left;
+}
+
+#iframeContent {
+	width: 75%;
+	height: 700px;
+}

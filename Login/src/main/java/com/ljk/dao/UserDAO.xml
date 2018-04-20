@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljk.dao.UserDAO">
+	<!-- 登陆验证 -->
+	<select id="selectByName" parameterType="string" resultType="com.ljk.yc.User">
+		select * from user_inf where username = #{username} and password = #{password}
+		union 
+		select * from user_inf where email = #{username} and password = #{password}
+	</select>
+	<select id="selectById" parameterType="int" resultType="com.ljk.yc.User">
+		select * from user_inf where id = # {id}
+	</select>
+	<!-- 验证注册用户是否可以注册 -->
+	<select id="checkByName" parameterType="string" resultType="int">
+	select count(*) from user_inf where username = #{username}
+	</select>
+	<!-- 验证注册用户邮箱是否可以注册 -->
+	<select id="checkByEmail" parameterType="string" resultType="int">
+	select count(*) from user_inf where email = #{email}
+	</select>
+	<!-- 注册用户 -->
+	<insert id="add" parameterType="com.ljk.yc.User">
+		insert into
+		user_inf(username,password,email)
+		values(#{username},#{password},#{email})
+	</insert>
+	<!-- 查询用户 + 分页 + 按账号和名称匹配 -->
+	<select id="getAllUsers" resultType="com.ljk.yc.User">
+		select * from user_inf where username like #{username} and password like
+		#{password} limit #{skip},#{size}
+	</select>
+	<!-- 用户总数 + 账号和名称匹配 -->
+	<select id="getCount" resultType="int">
+		select count(*) from user_inf where username like #{username} and password
+		like #{password}
+	</select>
+	<!-- 更新用户 -->
+	<update id="updateUser" parameterType="com.ljk.yc.User">
+		update user_inf set
+		username=#{username},password=#{password},email=#{email} where
+		id=#{id}
+	</update>
+	<!-- 删除用户 -->
+	<delete id="deleteUserById" parameterType="int">
+		delete from user_inf where id = #{id}
+	</delete>
+	<!-- 找回用户密码 -->
+	<update id="findPassword"  >
+	update user_inf set password = #{password} where email = #{email}
+	</update>
+</mapper>  

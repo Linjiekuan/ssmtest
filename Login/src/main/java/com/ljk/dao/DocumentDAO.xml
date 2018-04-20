@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljk.dao.DocumentDAO">
+	<!-- 获取文件信息 -->
+	<select id="getAllDocuments" resultType="com.ljk.yc.Document" >
+		select * from doc_inf where title like #{title}
+	</select>
+	<!-- 获取文件数量 -->
+	<select id="getDocumentCount" resultType="int">
+		select count(*)  from doc_inf where title like #{title}
+	</select>
+	<!-- 上传文件 -->
+	<insert id="addDocument" >
+	insert into doc_inf(title,remark,filename) values(#{title},#{remark},#{filename})
+	</insert>
+	<!-- 获取文件上传后的名字 -->
+	<select id="findFileName" resultType="String">
+	select filename from doc_inf where id = #{id}
+	</select>
+</mapper>  
