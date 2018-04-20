@@ -22,8 +22,8 @@
 				<a href="Mailto:597690851@qq.com"> <img
 					src="/SSM-Project/image/email.png" title="点击发送邮件"
 					style="width: 20px; height: 20px"></img>
-				</a> <img src="/SSM-Project/image/phone.png" title="电话联系：15917902177"
-					style="width: 17.6px; height: 17。6px"></img>
+				</a> <img src="/SSM-Project/image/phone.png" title="邮件联系：597690851@qq.com,有问题发邮件，会定时查看解决问题"
+					style="width: 17.6px; height: 17.6px"></img>
 			</div>
 		</div>
 
