@@ -56,6 +56,7 @@
  </dd>
 	<div class="hovertree_form_footer"></div>
 	</div>
+		<script type="text/javascript" src="/SSM-Project/js/md5.js"></script>
 	<script type="text/javascript" src="/SSM-Project/js/login.js"></script>
 	<script type="text/javascript" src="/SSM-Project/js/jquery-1.8.0.min.js"></script>
 </body>

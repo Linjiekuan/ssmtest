@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljk.dao.NoticeDAO">
+	<!-- 获取公告 -->
+	<select id="getAllNotices" resultType="com.ljk.yc.Notice">
+		select n.* , u.username as noticeUsername from notice_inf n  join user_inf u where n.title like #{title} 
+		and  n.user_id = u.id
+		limit #{skip}, #{size}
+	</select>
+	<!-- 获取数量 -->
+	<select id="getNoticeCount" resultType="int">
+		select count(*) from notice_inf where title like #{title}
+	</select>
+	<insert id="addNotice" >
+	insert into notice_inf (title,content,user_id) 
+	values( #{title},#{content},(select u.id from user_inf u where u.username = #{noticeUsername}) )
+	</insert>
+	<!-- <insert id="addNotice">
+	insert into notice_inf(title,content) 
+	values( #{title},#{content})
+	</insert> -->
+	<delete id="deleteNotice" parameterType="int" >
+	delete from notice_inf where id = #{id}
+	</delete>
+	<update id="updateNotice" parameterType="com.ljk.yc.Notice">
+	update notice_inf set title= #{title} , content = #{content} where id = #{id}
+	</update>
+</mapper>  

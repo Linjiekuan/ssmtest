@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ljk.service.EmailServiceImpl;
 import com.ljk.service.UserService;
 import com.ljk.yc.User;
+import com.ljk.md5.*;
+
 //@Controller注解用于标示本类为web层控制组件
 @Controller
 public class LoginRegisterController {
@@ -30,24 +32,29 @@ public class LoginRegisterController {
 		@Qualifier("emailserviceservice")
 		@Resource
 		 private EmailServiceImpl emailservice;
+		//引入MD5加密
+		private MD5 md5 = new MD5();
 		/**
 		 * 处理/login请求,也就是登陆验证
+		 * @throws Exception 
 		 */
 		@RequestMapping(value = "/login")
-		public String login( HttpServletRequest request, Model model) {
+		public String login( HttpServletRequest request, Model model) throws Exception {
 			// 根据登录名和密码查找用户，判断用户登录
 			User user1 = new User();
+			String passwordMD5 = md5.md5(request.getParameter("password"), "linjiekuan");
 			user1.setUserName(request.getParameter("username"));
-			user1.setPassword(request.getParameter("password"));
+			user1.setPassword(passwordMD5);
 			// User user = userService.login(
 			// user.getUserName(),user.getPassword());
-			User user = userService.login(request.getParameter("username"), request.getParameter("password"));
+			User user = userService.login(request.getParameter("username"), passwordMD5);
 			// User user = userService.login(
 			// username,password);//
 			if (user != null) {
 				// 登录成功，将user对象设置到HttpSession作用范围域
 				request.getSession().setAttribute("username", user.getUserName());
-				return "user/usermain"; // 在这里可以直接返回主页面，因为在mvc那里配置了前缀和后缀。
+				//return "user/usermain"; // 在这里可以直接返回主页面，因为在mvc那里配置了前缀和后缀。
+				return "index1";
 			} else {
 				// 登录失败，设置失败提示信息，并跳转到登录页面
 				return "error";
@@ -111,14 +118,16 @@ public class LoginRegisterController {
 
 		/**
 		 * 在注册页面注册用户时候的处理
+		 * @throws Exception 
 		 */
 		@RequestMapping(value = "/register")
 		public String register(@Param("username") String username, @Param("password") String password,
 				@Param("eamil") String email,@Param("emailyanzheng") String emailyanzheng,
-				HttpServletRequest request ,HttpSession httpSession) {
+				HttpServletRequest request ,HttpSession httpSession) throws Exception {
 			User newuser = new User();
+			String passwordMD5 = md5.md5(password, "linjiekuan");
 			newuser.setUserName(username);
-			newuser.setPassword(password);
+			newuser.setPassword(passwordMD5);
 			newuser.setEmail(email);
 			String emailyanzheng1=(String)request.getParameter("emailyanzheng");
 			String yanzheng=(String) request.getSession().getAttribute("yanzhengma");
