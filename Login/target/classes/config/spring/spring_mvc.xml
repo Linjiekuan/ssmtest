@@ -1,9 +1,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
+        http://www.springframework.org/schema/task
+		http://www.springframework.org/schema/task/spring-task-3.2.xsd
         http://www.springframework.org/schema/mvc 
         http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd 
         http://www.springframework.org/schema/context 
@@ -18,6 +23,9 @@
 	<mvc:default-servlet-handler />     <!-- <img src="/SSM-Project/img/user.png"/> 使用这种方法要加上这个配置 -->
 	<!-- 自动扫描该包，SpringMVC会将包下用了@controller注解的类注册为Spring的controller -->
 	<context:component-scan base-package="com.ljk.controller" />
+	<!-- task任务扫描注解 -->
+	<task:annotation-driven/>
+	<context:component-scan base-package="com.ljk.task"></context:component-scan>
 	<!--这里配置了，会导致后面的跳转页面不会在mvc的 class="org.springframework.web.servlet.view.InternalResourceViewResolver">这里封装跳转 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

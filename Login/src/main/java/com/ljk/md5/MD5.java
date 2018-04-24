@@ -1,6 +1,6 @@
 package com.ljk.md5;
 
-import java.security.MessageDigest;
+//import java.security.MessageDigest;
 import org.apache.commons.codec.digest.DigestUtils;
 
 
