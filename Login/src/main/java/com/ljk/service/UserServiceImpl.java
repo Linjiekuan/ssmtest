@@ -3,6 +3,7 @@ import com.ljk.dao.*;
 import com.ljk.yc.*;
 import com.ljk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ public class UserServiceImpl implements UserService  {
 	@Autowired 
     UserDAO userdao;
 	//登陆验证
+	@Cacheable("login")
 	public User login(String username,String password) {
       return userdao.selectByName(username, password);
     }

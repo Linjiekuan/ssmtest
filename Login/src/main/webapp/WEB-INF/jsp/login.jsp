@@ -52,7 +52,6 @@
 				注册</button>
 	</form>
 	 <dd>
-  <p>© 2017-2018 LJK 版权所有</p>
  </dd>
 	<div class="hovertree_form_footer"></div>
 	</div>

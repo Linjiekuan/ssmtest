@@ -11,7 +11,7 @@
 	<context-param>
 		<description>设置Spring加载时的配置文件位置，默认位置在WEB-INF/lib目录下</description>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:config/spring/spring_dao.xml</param-value>
+		<param-value>classpath*:config/spring/applicationContext.xml</param-value>
 	</context-param>
 	<listener>
 		<description>Spring容器加载监听器</description>
@@ -46,98 +46,4 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-	<!-- 路径映射 -->
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<servlet>
-		<servlet-name>UploadHandleServlet</servlet-name>
-		<servlet-class>me.gacl.web.controller.UploadHandleServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>UploadHandleServlet</servlet-name>
-		<url-pattern>/servlet/UploadHandleServlet</url-pattern>
-	</servlet-mapping>
-    <servlet>
-		<servlet-name>loginJsp</servlet-name>
-		<jsp-file>/WEB-INF/jsp/login.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>loginJsp</servlet-name>
-		<url-pattern>/loginjsp</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>navJsp</servlet-name>
-		<jsp-file>/WEB-INF/jsp/nav.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>navJsp</servlet-name>
-		<url-pattern>/navjsp</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>mainJsp</servlet-name>
-		<jsp-file>/WEB-INF/jsp/main.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>mainJsp</servlet-name>
-		<url-pattern>/mainjsp</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>headerJsp</servlet-name>
-		<jsp-file>/WEB-INF/jsp/header.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>headerJsp</servlet-name>
-		<url-pattern>/headerjsp</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>userJsp</servlet-name>
-		<jsp-file>/WEB-INF/jsp/user/user.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>userJsp</servlet-name>
-		<url-pattern>/userjsp</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>deptJsp</servlet-name>
-		<jsp-file>/WEB-INF/jsp/dept/dept.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>deptJsp</servlet-name>
-		<url-pattern>/deptjsp</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>jobJsp</servlet-name>
-		<jsp-file>/WEB-INF/jsp/job/job.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>jobJsp</servlet-name>
-		<url-pattern>/jobjsp</url-pattern>
-	</servlet-mapping>	
-	<servlet>
-		<servlet-name>noticeJsp</servlet-name>
-		<jsp-file>/WEB-INF/jsp/notice/notice.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>noticeJsp</servlet-name>
-		<url-pattern>/noticejsp</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>docJsp</servlet-name>
-		<jsp-file>/WEB-INF/jsp/doc/doc.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>docJsp</servlet-name>
-		<url-pattern>/docjsp</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>employeeJsp</servlet-name>
-		<jsp-file>/WEB-INF/jsp/employee/employee.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>employeeJsp</servlet-name>
-		<url-pattern>/employeejsp</url-pattern>
-	</servlet-mapping>
 </web-app> 

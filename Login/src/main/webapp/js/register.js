@@ -14,7 +14,7 @@ $(document).ready(function(){
                      checkemail=true;
                  }else{
                      //这里可以注册的可以不进行提示,清空即可
-                     $("#emailtext").html("验证码发送失败，请等等再发");
+                     $("#emailtext").html("验证码发送失败，请稍后重试");
                      checkemail=false;
                      $("#displayemail").show();
                  }

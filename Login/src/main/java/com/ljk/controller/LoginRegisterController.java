@@ -10,11 +10,15 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ljk.service.EmailServiceImpl;
+import com.ljk.service.RedisServiceImplTest;
+import com.ljk.service.RedisServiceTest;
 import com.ljk.service.UserService;
 import com.ljk.yc.User;
 import com.ljk.md5.*;
@@ -30,6 +34,14 @@ public class LoginRegisterController {
 		@Qualifier("emailserviceservice")
 		@Resource
 		 private EmailServiceImpl emailservice;
+		@Autowired
+		@Qualifier("redisServiceTest")
+		@Resource
+		private RedisServiceTest redisService;
+/*		ApplicationContext context=new ClassPathXmlApplicationContext("classpath*:config/applicationContext.xml "); 
+		RedisTemplateUtil redisUtil=(RedisTemplateUtil) context.getBean("redisUtil"); */
+/*		@Resource(name = "redis")
+		private RedisTemplateUtil redis;*/
 		//引入MD5加密
 		private MD5 md5 = new MD5();
 		/**
@@ -45,18 +57,32 @@ public class LoginRegisterController {
 			user1.setPassword(passwordMD5);
 			// User user = userService.login(
 			// user.getUserName(),user.getPassword());
-			User user = userService.login(request.getParameter("username"), passwordMD5);
+			String username = request.getParameter("username");
+			System.out.println(username);
+			String pwd=redisService.getUser(username);
+			System.out.println("pwd:"+pwd);
+			System.out.println("passwordMD5:"+passwordMD5);
+			
+			if (passwordMD5 == pwd) {
+				// 登录成功，将user对象设置到HttpSession作用范围域
+				request.getSession().setAttribute("username",username);
+				return "user/user";
+			} else {
+				User user = userService.login(request.getParameter("username"), passwordMD5);
+				if (user != null) {
+					redisService.set(username,passwordMD5);
+					// 登录成功，将user对象设置到HttpSession作用范围域
+					request.getSession().setAttribute("username", user.getUserName());
+					//return "user/usermain"; // 在这里可以直接返回主页面，因为在mvc那里配置了前缀和后缀。
+					return "redirect:/user/userInfo";
+				} else {
+					// 登录失败，设置失败提示信息，并跳转到登录页面
+					return "error";
+				}
+			}
 			// User user = userService.login(
 			// username,password);//
-			if (user != null) {
-				// 登录成功，将user对象设置到HttpSession作用范围域
-				request.getSession().setAttribute("username", user.getUserName());
-				//return "user/usermain"; // 在这里可以直接返回主页面，因为在mvc那里配置了前缀和后缀。
-				return "index1";
-			} else {
-				// 登录失败，设置失败提示信息，并跳转到登录页面
-				return "error";
-			}
+
 		}
 
 		/**

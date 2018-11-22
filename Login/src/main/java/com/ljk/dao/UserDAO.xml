@@ -5,12 +5,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.ljk.dao.UserDAO">
 	<!-- 登陆验证 -->
 	<select id="selectByName" parameterType="string" resultType="com.ljk.yc.User">
-		select * from user_inf where username = #{username} and password = #{password}
+		select username from user_inf where username = #{username} and password = #{password}
 		union 
-		select * from user_inf where email = #{username} and password = #{password}
+		select username from user_inf where email = #{username} and password = #{password}
 	</select>
 	<select id="selectById" parameterType="int" resultType="com.ljk.yc.User">
-		select * from user_inf where id = # {id}
+		select username from user_inf where id = # {id}
 	</select>
 	<!-- 验证注册用户是否可以注册 -->
 	<select id="checkByName" parameterType="string" resultType="int">

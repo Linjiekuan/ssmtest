@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.ljk.dao.UsersDAO">  
+
+<!-- 新增 -->
+      <insert id="saveUser" parameterType="Users"  >
+         insert into user_inf(loginname,password,status,createDate,username,email) values (#{loginname},#{password},#{status},#{createDate},#{username},#{email})
+      </insert>
+
+      <!-- 修改 -->
+      <update id="updateUser" parameterType="Users" >
+        update user_inf set loginname=#{loginname},password=#{password},status=#{status},createDate=#{createDate},username=#{username},email=#{email} where id=#{id}
+      </update>
+
+      <!-- 删除 -->
+      <delete id="deleteUser" parameterType="int">
+          delete from user_inf where id=#{id}    
+      </delete>
+
+      <!-- 根据id查找单个用户 -->
+      <select id="findUserById" parameterType="int" resultType="Users">
+         select * from user_inf where id=#{id}    
+      </select>
+
+      <!-- 查询所有 -->
+       <select id="findAll" resultType="Users">    
+          select * from user_inf      
+        </select>  
+</mapper>  

@@ -4,7 +4,7 @@ public class MD5Util {
 		String yanzhengma="";
 		java.util.Random r=new java.util.Random();
 		yanzhengma+=r.nextInt();
-		yanzhengma.substring(4);
+		yanzhengma=yanzhengma.substring(4);
         return yanzhengma;
 }
 }
